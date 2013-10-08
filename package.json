@@ -1,0 +1,15 @@
+{
+  "name": "srl-maze",
+  "version": "0.0.1",
+  "description": "maze solve by swarm reinforce learning ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jigsaw <m@jgs.me>",
+  "license": "MIT",
+  "dependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt": "~0.4.1"
+  }
+}
