@@ -15,7 +15,7 @@ class Swarm
         i += 1
       i = 0
       while i < @agents.length
-        @agents[i].data = @Qbest
+        @agents[i].data = @averageQ @agents[i].data
         i += 1
 
   update: (agent)=>
@@ -41,5 +41,17 @@ class Swarm
       E += Math.pow(@d, (agent.action - i)) * reward
       i += 1
     E
+
+  averageQ: (me)=>
+    i = 0
+    while i < me.length
+      j = 0
+      while j < me[i].length
+        for dir in Object.keys(me[i][j])
+          me[i][j][dir] = (@Qbest[i][j][dir] + me[i][j][dir]) / 2
+          console.log me[i][j][dir]
+        j += 1
+      i += 1
+    me
 
 module.exports = Swarm
