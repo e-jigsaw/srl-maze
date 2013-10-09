@@ -13,6 +13,10 @@ class Swarm
       while i < @agents.length
         @agents[i] = @update @agents[i]
         i += 1
+      i = 0
+      while i < @agents.length
+        @agents[i].data = @Qbest
+        i += 1
 
   update: (agent)=>
     agent.update()
