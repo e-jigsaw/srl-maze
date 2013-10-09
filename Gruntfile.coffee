@@ -11,6 +11,7 @@ module.exports = (grunt)->
         files:
           "lib/maze.js": "lib/maze.coffee"
           "lib/agent.js": "lib/agent.coffee"
+          "lib/swarm.js": "lib/swarm.coffee"
         options:
           bare: true
 

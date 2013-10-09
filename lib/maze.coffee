@@ -3,10 +3,12 @@ class Maze
   start:
     x: 0
     y: 0
+
+  n: 40
   
   # n: maze size
   # generate goal position, field
-  constructor: (@n)->
+  constructor: ->
     @goal =
       x: @n - Math.floor(Math.random() * 5)
       y: @n - Math.floor(Math.random() * 5)

@@ -1,3 +1,6 @@
+# load maze class
+Maze = require "./maze"
+
 class Agent
   # set agent setting value
   alpha: 0.1
@@ -16,12 +19,16 @@ class Agent
     x: null
     y: null
   
-  # generate Q(s,a)
-  constructor: (@maze)->
+  constructor: ->
+    # initialize maze
+    @maze = new Maze()
+    @n = @maze.n
+
+    # generate Q(s,a)
     @data = []
-    for i in [0..@maze.n]
+    for i in [0..@n]
       row = []
-      for j in [0..@maze.n]
+      for j in [0..@n]
         action = 
           up: 0
           right: 0
@@ -83,11 +90,44 @@ class Agent
     return action
   
   # update Q(s,a)
-  update: (reward, action)->
+  updateQ: (reward, action)->
     # calc max action
     maxAction = @decide @current.x, @current.y, false
 
     # Q-learning update formura
     @data[@prev.y][@prev.x][action] += @alpha * (reward + @gamma * @data[@current.y][@current.x][maxAction] - @data[@prev.y][@prev.x][action])
+
+  update: ->
+    # initialize agent position
+    @move @maze.start.x, @maze.start.y
+    # initialize reward
+    reward = 0
+    # initialize maze
+    @maze = new Maze @n
+    # initialize agent action counter
+    @action = 0
+    
+    # repeat until agent move to goal
+    while @action < @action_limit
+      # decide action on current state
+      action = @decide true
+
+      # calcurate next position
+      nextState = @next action
+
+      # agent move
+      @move nextState.x, nextState.y
+
+      # calcurate reward
+      reward = @maze.reward @current.x, @current.y
+
+      # update agent's Q(s,a)
+      @updateQ reward, action
+      
+      # agent action count up
+      @action += 1
+
+      # judge is agent goaled
+      break if reward is 100
 
 module.exports = Agent
