@@ -92,7 +92,7 @@ class Agent
   # update Q(s,a)
   updateQ: (reward, action)->
     # calc max action
-    maxAction = @decide @current.x, @current.y, false
+    maxAction = @decide false
 
     # Q-learning update formura
     @data[@prev.y][@prev.x][action] += @alpha * (reward + @gamma * @data[@current.y][@current.x][maxAction] - @data[@prev.y][@prev.x][action])
@@ -103,7 +103,7 @@ class Agent
     # initialize reward
     reward = 0
     # initialize maze
-    @maze = new Maze @n
+    @maze = new Maze()
     # initialize agent action counter
     @action = 0
     
