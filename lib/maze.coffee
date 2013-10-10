@@ -6,7 +6,6 @@ class Maze
 
   n: 40
   
-  # n: maze size
   # generate goal position, field
   constructor: ->
     @goal =
