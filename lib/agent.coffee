@@ -25,7 +25,7 @@ class Agent
     @n = @maze.n
 
     # generate Q(s,a)
-    @data = []
+    @Q = []
     for i in [0..@n]
       row = []
       for j in [0..@n]
@@ -35,7 +35,7 @@ class Agent
           down: 0
           left: 0
         row.push action
-      @data.push row
+      @Q.push row
   
   # agent move
   move: (x, y)->
@@ -74,8 +74,8 @@ class Agent
     
     # list up avalable direction
     list = {}
-    for dir of @data[@current.y][@current.x]
-      list[dir] = @data[@current.y][@current.x][dir] if @maze.isAvalable(@current.x, @current.y, dir) is 1
+    for dir of @Q[@current.y][@current.x]
+      list[dir] = @Q[@current.y][@current.x][dir] if @maze.isAvalable(@current.x, @current.y, dir) is 1
     
     # epsilon greedy, calc random value
     return Object.keys(list)[Math.floor(Math.random() * (Object.keys(list).length-1))] if Math.floor(Math.random() * 100) < (@epsilon * 100) and eps is true
@@ -95,7 +95,7 @@ class Agent
     maxAction = @decide false
 
     # Q-learning update formura
-    @data[@prev.y][@prev.x][action] += @alpha * (reward + @gamma * @data[@current.y][@current.x][maxAction] - @data[@prev.y][@prev.x][action])
+    @Q[@prev.y][@prev.x][action] += @alpha * (reward + @gamma * @Q[@current.y][@current.x][maxAction] - @Q[@prev.y][@prev.x][action])
 
   update: ->
     # initialize agent position

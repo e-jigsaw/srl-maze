@@ -15,7 +15,7 @@ class Swarm
         i += 1
       i = 0
       while i < @agents.length
-        @agents[i].data = @Qbest
+        @agents[i].Q = @Qbest
         i += 1
 
   update: (agent)=>
@@ -26,10 +26,10 @@ class Swarm
     if @Qbest? and @Ebest?
       if E > @Ebest
         @Ebest = E
-        @Qbest = agent.data
+        @Qbest = @copyArray agent.Q
     else
       @Ebest = E
-      @Qbest = agent.data
+      @Qbest = @copyArray agent.Q
     agent
 
   evaluate: (agent)=>
@@ -41,5 +41,21 @@ class Swarm
       E += Math.pow(@d, (agent.action - i)) * reward
       i += 1
     E
+
+  copyArray: (source)->
+    result = []
+    i = 0
+    while i < source.length
+      j = 0
+      row = []
+      while j < source[i].length
+        data = {}
+        for dir in Object.keys source[i][j]
+          data[dir] = source[i][j][dir]
+        row.push data
+        j += 1
+      i += 1
+      result.push row
+    result
 
 module.exports = Swarm
