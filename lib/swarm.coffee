@@ -49,7 +49,6 @@ class Swarm
       while j < me[i].length
         for dir in Object.keys(me[i][j])
           me[i][j][dir] = (@Qbest[i][j][dir] + me[i][j][dir]) / 2
-          console.log me[i][j][dir]
         j += 1
       i += 1
     me
