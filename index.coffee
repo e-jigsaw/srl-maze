@@ -3,7 +3,7 @@ Agent = require "./lib/agent"
 Swarm = require "./lib/swarm"
 
 # set n value
-agentNum = 1
+agentNum = 4
 
 # create agents
 agents = []
