@@ -15,7 +15,7 @@ class Swarm
         i += 1
       i = 0
       while i < @agents.length
-        @agents[i].Q = @Qbest
+        @agents[i].Q = @copyArray @Qbest
         i += 1
 
   update: (agent)=>
